@@ -1,6 +1,6 @@
 {
-  "name": "vue-profile-v01",
-  "version": "0.0.0",
+  "name": "jstrunk-profile",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
