@@ -2,8 +2,10 @@
   <div
     class="card sm:card-side bg-base-100 rounded-2xl shadow-lg p-1 md:p-3 hover:shadow-2xl"
   >
-    <figure>
-      <div class="relative bg-base-300 rounded-full">
+    <figure class="min-w-fit">
+      <div
+        class="relative rounded-full flex items-center w-40 sm:max-w-xs h-40 sm:max-h-xs"
+      >
         <p
           v-if="props.yearEnd"
           class="absolute top-1 left-1/2 -translate-x-1/2 bg-gray-800 opacity-70 text-white rounded-full px-3"
@@ -17,7 +19,7 @@
           {{ props.yearStart.toString() }}
         </p>
         <img
-          class="aspect-square w-40 sm:max-w-xs object-cover rounded-full"
+          class="aspect-square w-40 sm:max-w-xs rounded-full"
           :src="`${props.imageUrl}`"
           :alt="`${props.imageAlt}`"
         />

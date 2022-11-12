@@ -1,8 +1,8 @@
 <template>
   <section :id="props.anchor">
-    <div class="card lg:card-side p-6">
+    <div class="card md:card-side p-6">
       <!-- Side Image -->
-      <figure class="w-full">
+      <figure class="min-w-fit">
         <img class="rounded-2xl" :src="props.imageUrl" :alt="props.imageAlt" />
       </figure>
       <!-- Side Content -->
