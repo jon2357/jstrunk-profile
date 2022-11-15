@@ -30,7 +30,7 @@ const brandData = {
         <!-- Navigation Links -->
         <!-- For large screens display links across the top of the navbar -->
         <div class="navbar-end">
-          <ul class="menu menu-horizontal p-0 hidden md:flex shrink-0">
+          <ul class="menu menu-horizontal p-0 hidden lg:flex shrink-0">
             <li v-for="item in navigationData" :key="item.name">
               <RouterLink class="btn btn-ghost" :to="item.path"
                 ><font-awesome-icon class="ml-2" :icon="`${item.icon}`" />
@@ -41,7 +41,7 @@ const brandData = {
 
           <!-- For less than a large screen use a drop down menu -->
           <div class="dropdown dropdown-end">
-            <label tabindex="0" class="btn btn-ghost md:hidden">
+            <label tabindex="0" class="btn btn-ghost lg:hidden">
               <font-awesome-icon class="text-2xl" icon="fa-solid fa-bars" />
             </label>
             <ul
