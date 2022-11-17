@@ -1,14 +1,22 @@
 steps:
-#Create .env file from Google Cloud Build substitution variables
-- name: node
-  entrypoint: npm
-  args: ["run", "create-env"]
-  env:
-    - 'VITE_CONTENTFUL_DELIVERY_TOKEN=${_CONTENTFUL_DELIVERY_TOKEN}'
-    - 'VITE_CONTENTFUL_SPACE_ID=${_CONTENTFUL_SPACE_ID}'
-#The .env file is prepared and ready to deploy to Google App Engine
-- name: "gcr.io/cloud-builders/docker"
-  args: [ 'build', '-t', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}', '.' ]
+  #Create .env file from Google Cloud Build substitution variables
+  - name: node
+    entrypoint: npm
+    args: ["run", "create-env"]
+    env:
+      - "VITE_CONTENTFUL_DELIVERY_TOKEN=qLuJg7hAzNaT8owpaF9aTDvVYx71Ab5-9j9g8c_KKCE"
+      - "VITE_CONTENTFUL_SPACE_ID=7hkgu8l9916u"
+  #The .env file is prepared and ready to deploy to Google App Engine
+
+  #Create the Container using a Dockerfile
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}",
+        ".",
+      ]
 images:
-  - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}'
+  - "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}"
 timeout: "1600s"

@@ -31,7 +31,13 @@ RUN npm run build
 # nginx uses debian:bullseye-slim (~52MB)
 # nginx:alpine uses alpine (~9mb). If all we are doing to serving static content, use this.
 FROM nginx:alpine as production-stage
+
+# Use the output from the build stage and copy it to the nginx fodler in the production container
 COPY --from=build-stage /app/dist /usr/share/nginx/html
-# Might need to update /etc/nginx/conf.d/default.conf to listen on port 8080
+
+# Copy the nginx configuration to expose port 8080 (default on GCP)
+COPY --from=build-stage /app/deployment/default.conf /etc/nginx/conf.d/default.conf
+
+# Expose container port 8080
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
