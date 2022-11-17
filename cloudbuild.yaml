@@ -4,8 +4,8 @@ steps:
     entrypoint: npm
     args: ["run", "create-env"]
     env:
-      - "VITE_CONTENTFUL_DELIVERY_TOKEN=qLuJg7hAzNaT8owpaF9aTDvVYx71Ab5-9j9g8c_KKCE"
-      - "VITE_CONTENTFUL_SPACE_ID=7hkgu8l9916u"
+      - "VITE_CONTENTFUL_DELIVERY_TOKEN=${_CONTENTFUL_DELIVERY_TOKEN}"
+      - "VITE_CONTENTFUL_SPACE_ID=${_CONTENTFUL_SPACE_ID}"
   #The .env file is prepared and ready to deploy to Google App Engine
 
   #Create the Container using a Dockerfile
@@ -14,9 +14,9 @@ steps:
       [
         "build",
         "-t",
-        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}",
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA",
         ".",
       ]
 images:
-  - "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}"
+  - "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA"
 timeout: "1600s"
