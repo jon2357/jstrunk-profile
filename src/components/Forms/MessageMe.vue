@@ -2,7 +2,7 @@
   <div
     class="bg-base-200 rounded-3xl p-4 flex justify-center max-w-max border-base-300 border-2"
   >
-    <form>
+    <form @submit.prevent>
       <div class="form-control">
         <label class="label">
           <span class="label-text text-lg font-bold">Contact Me</span>
@@ -41,7 +41,10 @@
             ></textarea>
           </label>
 
-          <button @click="say(formInfo)" class="btn btn-primary rounded-2xl">
+          <button
+            @click="buttonSubmit(formInfo)"
+            class="btn btn-primary rounded-2xl"
+          >
             Submit Message
           </button>
         </div>
@@ -57,15 +60,20 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import { insertFormData } from "../../plugins/suprabase";
 
 const formInfo = ref({
   name: null,
   email: null,
   message: null,
 });
-function say(message) {
-  console.log(message);
-  alert(JSON.stringify(message));
+
+const emit = defineEmits(["btnClick"]);
+
+async function buttonSubmit(formData) {
+  await insertFormData("messageme", formData);
+  emit("btnClick", true);
 }
+
 // * TODO: Emit a form completed response (this should trigger closing the modal that contains the form, and replacing it with a )
 </script>

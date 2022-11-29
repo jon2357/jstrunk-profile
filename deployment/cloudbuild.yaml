@@ -7,6 +7,8 @@ steps:
     env:
       - "VITE_CONTENTFUL_DELIVERY_TOKEN=${_CONTENTFUL_DELIVERY_TOKEN}"
       - "VITE_CONTENTFUL_SPACE_ID=${_CONTENTFUL_SPACE_ID}"
+      - "VITE_DB_ENDPOINT= ${_DB_ENDPOINT}"
+      - "VITE_DB_ANON_KEY= ${_DB_ANON_KEY}"
 
   #Create the Container using a Dockerfile
   - name: "gcr.io/cloud-builders/docker"
@@ -49,6 +51,8 @@ substitutions:
   _ENV: test
   _CONTENTFUL_DELIVERY_TOKEN: happygolucky
   _CONTENTFUL_SPACE_ID: trysomethingelse
+  _DB_ENDPOINT: notthis
+  _DB_ANON_KEY: onlydoesathing
 tags:
   - jstrunk-profile
   - $_ENV

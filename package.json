@@ -17,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
+    "@supabase/supabase-js": "^2.1.1",
     "contentful": "^9.2.7",
     "highlight.js": "^11.6.0",
     "katex": "^0.16.3",
