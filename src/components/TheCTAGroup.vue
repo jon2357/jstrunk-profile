@@ -6,7 +6,7 @@
       :tooltip="ctaRoutes.directMessage.text"
       :text="null"
       @btnClick="buttonClick(1)"
-      :isDisabled="true"
+      :isDisabled="false"
     />
     <CTAButton
       :icon="ctaRoutes.meeting.icon"
@@ -19,7 +19,7 @@
       :tooltip="ctaRoutes.newsletter.text"
       :text="null"
       @btnClick="buttonClick(3)"
-      :isDisabled="true"
+      :isDisabled="false"
     />
   </div>
 
@@ -27,9 +27,22 @@
     <!-- use the modal component, pass in the prop -->
     <BaseModal :show="showModal" @close="showModal = false">
       <template #body>
-        <MessageMe v-if="modalFrom === 1"></MessageMe>
-        <CalendlyMeeting v-if="modalFrom === 2"></CalendlyMeeting>
-        <JoinNewsletter v-if="modalFrom === 3"></JoinNewsletter>
+        <ReformMessageMe
+          v-if="modalFrom === 1"
+          @btnClick="buttonClick(0)"
+        ></ReformMessageMe>
+        <CalendlyMeeting
+          v-if="modalFrom === 2"
+          @btnClick="buttonClick(0)"
+        ></CalendlyMeeting>
+        <ReformJoinNewsletter
+          v-if="modalFrom === 3"
+          @btnClick="buttonClick(0)"
+        ></ReformJoinNewsletter>
+        <!-- <CognitoFormMessageMe v-if="modalFrom === 1"></CognitoFormMessageMe> -->
+        <!-- <CognitoFormJoinNewsletter
+          v-if="modalFrom === 3"
+        ></CognitoFormJoinNewsletter> -->
       </template>
     </BaseModal>
   </Teleport>
@@ -42,7 +55,10 @@ import JoinNewsletter from "./Forms/JoinNewsletter.vue";
 import { ref } from "vue";
 import MessageMe from "./Forms/MessageMe.vue";
 import CalendlyMeeting from "./Forms/CalendlyMeeting.vue";
-
+import CognitoFormMessageMe from "./Forms/CognitoFormMessageMe.vue";
+import CognitoFormJoinNewsletter from "./Forms/CognitoFormJoinNewsletter.vue";
+import ReformJoinNewsletter from "./Forms/ReformJoinNewsletter.vue";
+import ReformMessageMe from "./Forms/ReformMessageMe.vue";
 const showModal = ref(false);
 const modalFrom = ref(0);
 
@@ -50,7 +66,12 @@ const emit = defineEmits(["btnClick"]);
 
 const buttonClick = (value) => {
   console.log("group", value);
-  showModal.value = true;
+  if (value == 0) {
+    showModal.value = false;
+  } else {
+    showModal.value = true;
+  }
+
   modalFrom.value = value;
   emit("btnClick", value);
 };

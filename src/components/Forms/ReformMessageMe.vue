@@ -1,8 +1,8 @@
 <template>
   <div
-    class="bg-base-200 rounded-3xl p-4 flex justify-center max-w-max border-base-300 border-2"
+    class="bg-stone-200 rounded-3xl p-4 flex justify-center max-w-max border-stone-300 border-2"
   >
-    <form @submit.prevent>
+    <!-- <form @submit.prevent>
       <div class="form-control">
         <label class="label">
           <span class="label-text text-lg font-bold">Contact Me</span>
@@ -55,25 +55,31 @@
           </p>
         </div>
       </div>
-    </form>
+    </form> -->
+    <div id="my-reform"></div>
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
-import { insertFormData } from "../../plugins/suprabase";
+import { onMounted } from "vue";
 
-const formInfo = ref({
-  name: null,
-  email: null,
-  message: null,
+onMounted(() => {
+  let ckeditor = document.createElement("script");
+  ckeditor.setAttribute("src", "https://embed.reform.app/v1/embed.js");
+  ckeditor.setAttribute("id", "reform-script");
+  ckeditor.setAttribute("async", "true");
+  document.head.appendChild(ckeditor);
+
+  window.Reform =
+    window.Reform ||
+    function () {
+      (Reform.q = Reform.q || []).push(arguments);
+    };
+  Reform("init", {
+    url: "https://forms.reform.app/i3kH4y/contact-form/lexflu",
+    target: "#my-reform",
+    background: "transparent",
+  });
 });
-
-const emit = defineEmits(["btnClick"]);
-
-async function buttonSubmit(formData) {
-  await insertFormData("messageme", formData);
-  emit("btnClick", true);
-}
 
 // * TODO: Emit a form completed response (this should trigger closing the modal that contains the form, and replacing it with a )
 </script>

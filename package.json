@@ -1,6 +1,6 @@
 {
   "name": "jstrunk-profile",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -8,7 +8,8 @@
     "test:unit": "vitest --environment jsdom",
     "test:e2e": "start-server-and-test preview http://localhost:4173/ 'cypress open --e2e'",
     "test:e2e:ci": "start-server-and-test preview http://localhost:4173/ 'cypress run --e2e'",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "create-env": "printenv > .env"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
@@ -16,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
+    "@supabase/supabase-js": "^2.1.1",
     "contentful": "^9.2.7",
     "highlight.js": "^11.6.0",
     "katex": "^0.16.3",

@@ -1,11 +1,13 @@
 <template>
-  <div class="bg-base-200 rounded-3xl p-4 max-w-max border-base-300 border-2">
+  <div
+    class="bg-base-200 rounded-3xl p-4 max-w-max border-base-300 border-2 h-full"
+  >
     <!-- Calendly inline widget begin -->
     <div
-      class="calendly-inline-widget sm:w-96"
+      class="calendly-inline-widget sm:w-96 h-[800px] max-h-[80vh]"
       data-url="https://calendly.com/jonstrunk/15min"
-      style="height: 80vh"
     ></div>
+    <!-- style="height: 800px" -->
     <!-- Calendly inline widget end -->
   </div>
 </template>

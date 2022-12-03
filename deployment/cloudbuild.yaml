@@ -1,0 +1,58 @@
+steps:
+  #Create .env file from Google Cloud Build substitution variables
+  - name: node
+    id: Prepare
+    entrypoint: npm
+    args: ["run", "create-env"]
+    env:
+      - "VITE_CONTENTFUL_DELIVERY_TOKEN=${_CONTENTFUL_DELIVERY_TOKEN}"
+      - "VITE_CONTENTFUL_SPACE_ID=${_CONTENTFUL_SPACE_ID}"
+      - "VITE_DB_ENDPOINT= ${_DB_ENDPOINT}"
+      - "VITE_DB_ANON_KEY= ${_DB_ANON_KEY}"
+
+  #Create the Container using a Dockerfile
+  - name: "gcr.io/cloud-builders/docker"
+    id: Build
+    args:
+      [
+        "build",
+        "-t",
+        "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA",
+        ".",
+      ]
+  #Push the build image to Artifact Registry
+  - name: gcr.io/cloud-builders/docker
+    id: Push
+    args:
+      - push
+      - "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA"
+
+  # Deploy to CLoud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: Deploy
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE_NAME}
+      - "--image=${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA"
+      - "--region=${_LOCATION}"
+      - "--port=8080"
+      - "--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-name=$TRIGGER_NAME"
+
+images:
+  - "${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:$COMMIT_SHA"
+timeout: "1600s"
+substitutions:
+  _LOCATION: us-central1
+  _REPOSITORY: test
+  _IMAGE: test
+  _SERVICE_NAME: test
+  _ENV: test
+  _CONTENTFUL_DELIVERY_TOKEN: happygolucky
+  _CONTENTFUL_SPACE_ID: trysomethingelse
+  _DB_ENDPOINT: notthis
+  _DB_ANON_KEY: onlydoesathing
+tags:
+  - jstrunk-profile
+  - $_ENV
