@@ -27,18 +27,18 @@
     <!-- use the modal component, pass in the prop -->
     <BaseModal :show="showModal" @close="showModal = false">
       <template #body>
-        <MessageMe
+        <ReformMessageMe
           v-if="modalFrom === 1"
           @btnClick="buttonClick(0)"
-        ></MessageMe>
+        ></ReformMessageMe>
         <CalendlyMeeting
           v-if="modalFrom === 2"
           @btnClick="buttonClick(0)"
         ></CalendlyMeeting>
-        <JoinNewsletter
+        <ReformJoinNewsletter
           v-if="modalFrom === 3"
           @btnClick="buttonClick(0)"
-        ></JoinNewsletter>
+        ></ReformJoinNewsletter>
         <!-- <CognitoFormMessageMe v-if="modalFrom === 1"></CognitoFormMessageMe> -->
         <!-- <CognitoFormJoinNewsletter
           v-if="modalFrom === 3"
@@ -57,7 +57,8 @@ import MessageMe from "./Forms/MessageMe.vue";
 import CalendlyMeeting from "./Forms/CalendlyMeeting.vue";
 import CognitoFormMessageMe from "./Forms/CognitoFormMessageMe.vue";
 import CognitoFormJoinNewsletter from "./Forms/CognitoFormJoinNewsletter.vue";
-
+import ReformJoinNewsletter from "./Forms/ReformJoinNewsletter.vue";
+import ReformMessageMe from "./Forms/ReformMessageMe.vue";
 const showModal = ref(false);
 const modalFrom = ref(0);
 
