@@ -20,7 +20,11 @@ const router = createRouter({
     {
       path: "/blog",
       name: "blog",
-      component: () => import("../views/blog/BlogListView.vue"),
+      // Vue Route Gaurd to external link
+      beforeEnter(to, from) {
+        window.location.href = "https://content.jonstrunk.com/";
+      }
+      //component: () => import("../views/blog/BlogListView.vue"),
     },
     {
       path: "/blog/:slug",
